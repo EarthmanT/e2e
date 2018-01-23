@@ -5,10 +5,10 @@
 3. Upload the plugin for scaling the database cluster.
 4. Create dummy secrets for the k8s cluster: `for i in kubernetes_master_ip kubernetes_certificate_authority_data kubernetes_master_port kubernetes-admin_client_key_data kubernetes-admin_client_certificate_data; do cfy secrets create -s null $i; done`
 5. Upload the `db` blueprint. ![upload db blueprint][uploaddb]
-6. Upload the `lb` blueprint.
-7. Upload the `drupal` blueprint.
-8. Upload the `wordpress` blueprint.
-9. Upload the `k8s` blueprint.
+6. Upload the `lb` blueprint. ![upload lb blueprint][uploadlb]
+7. Upload the `drupal` blueprint. ![upload drupal blueprint][uploaddp]
+8. Upload the `wordpress` blueprint. ![upload wordpress blueprint][uploadwp]
+9. Upload the `k8s` blueprint. ![upload k8s blueprint][uploadk8s]
 10. Create a `k8s` deployment and execute `install`.
 11. Create a `drupal` deployment and execute `install`.
 12. When the `drupal` deployment is finished. Scale the database cluster.
@@ -61,4 +61,8 @@ cfy blueprints package db-lb-app --output-path ~/Desktop/wordpress
 cfy blueprints package cloudify-kubernetes-provider --output-path ~/Desktop/k8s
 ```
 
-[uploaddb]: https://github.com/EarthmanT/e2e/raw/master/images/step5.png "Upload DB Blueprint"
+[uploaddb]: https://github.com/EarthmanT/e2e/raw/master/images/step5.png "Upload db Blueprint"
+[uploadlb]: https://github.com/EarthmanT/e2e/raw/master/images/step6.png "Upload lb Blueprint"
+[uploaddp]: https://github.com/EarthmanT/e2e/raw/master/images/step7.png "Upload drupal Blueprint"
+[uploadwp]: https://github.com/EarthmanT/e2e/raw/master/images/step8.png "Upload wordpress Blueprint"
+[uploadk8s]: https://github.com/EarthmanT/e2e/raw/master/images/step9.png "Upload k8s Blueprint"
