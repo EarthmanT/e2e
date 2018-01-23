@@ -51,9 +51,9 @@ Get the `aws` deployment outputs.
 
 ![get aws deployment outputs][awsoutputs]
 
-Update the `vpc_id`, `public_subnet_id`, `private_subnet_id` and `availability_zone`.
+Update the secrets `vpc_id`, `public_subnet_id`, `private_subnet_id` and `availability_zone`.
 
-![get aws deployment outputs][awssecrets]
+![create aws secrets][awssecrets]
 
 Upload the `db` blueprint.
 
@@ -120,6 +120,7 @@ Execute `install` workflow.
 [createaws]: https://github.com/EarthmanT/e2e/raw/master/images/createaws.png "Create AWS Deployment"
 [installaws]: https://github.com/EarthmanT/e2e/raw/master/images/installaws.png "Install AWS Deployment"
 [awsoutputs]: https://github.com/EarthmanT/e2e/raw/master/images/awsoutputs.png "Get AWS Deployment Outputs"
+[awssecrets]: https://github.com/EarthmanT/e2e/raw/master/images/awssecrets.png "Create AWS Secrets"
 [uploaddb]: https://github.com/EarthmanT/e2e/raw/master/images/uploaddb.png "Upload db Blueprint"
 [uploadlb]: https://github.com/EarthmanT/e2e/raw/master/images/uploadlb.png "Upload lb Blueprint"
 [uploaddp]: https://github.com/EarthmanT/e2e/raw/master/images/uploaddp.png "Upload drupal Blueprint"
