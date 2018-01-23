@@ -66,7 +66,13 @@ When the `drupal` deployment is finished. Scale the database cluster by executin
 
 ![scale db/lb stack][scaledblb] ![scale db/lb stack][scaledblba] ![scale db/lb stack][scaledblbb]
 
-When the `k8s` deployment is finished, execute the `wordpress` deployment and execute `install`.
+When the `k8s` deployment is finished, create the `wordpress` deployment.
+
+Change these inputs: `new_database_user` should be `appuser`, and `environment_blueprint_filename` should be `aws-blueprint.yaml`.
+
+![create wp deployment][deploywp] ![create wp deployment][deploywpb]
+
+Execute `install` workflow.
 
 
 ##  build instructions
@@ -131,3 +137,6 @@ cfy blueprints package cloudify-kubernetes-provider --output-path ~/Desktop/k8s
 [scaledblb]: https://github.com/EarthmanT/e2e/raw/master/images/scaledblb.png "Scale DB/LB"
 [scaledblba]: https://github.com/EarthmanT/e2e/raw/master/images/scaledblba.png "Scale DB/LB A"
 [scaledblbb]: https://github.com/EarthmanT/e2e/raw/master/images/scaledblbb.png "Scale DB/LB B"
+[deploywp]: https://github.com/EarthmanT/e2e/raw/master/images/deploywp.png "Deploy wordpress Deployment"
+[deploywpb]: https://github.com/EarthmanT/e2e/raw/master/images/deploywp.png "Deploy wordpress Deployment"
+[installwp]: https://github.com/EarthmanT/e2e/raw/master/images/installwp.png "Install wordpress Deployment"
