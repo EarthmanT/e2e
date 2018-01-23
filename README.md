@@ -4,7 +4,7 @@
 2. Download the latest version of this demo from the releases page.
 3. Upload the plugin for scaling the database cluster.
 4. Create dummy secrets for the k8s cluster: `for i in kubernetes_master_ip kubernetes_certificate_authority_data kubernetes_master_port kubernetes-admin_client_key_data kubernetes-admin_client_certificate_data; do cfy secrets create -s null $i; done`
-5. Upload the `db` blueprint.
+5. Upload the `db` blueprint. ![upload db blueprint][uploaddb]
 6. Upload the `lb` blueprint.
 7. Upload the `drupal` blueprint.
 8. Upload the `wordpress` blueprint.
@@ -61,3 +61,4 @@ cfy blueprints package db-lb-app --output-path ~/Desktop/wordpress
 cfy blueprints package cloudify-kubernetes-provider --output-path ~/Desktop/k8s
 ```
 
+[uploaddb]: https://github.com/EarthmanT/e2e/raw/master/images/step5.png "Upload DB Blueprint"
