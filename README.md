@@ -54,6 +54,10 @@ Change these inputs: `new_database_user` should be `appuser`, and `proxy_manager
 
 ![install drupal deployment][uploaddpb]
 
+Notice that the drupal deployment will create some resources in AWS and Openstack. The database cluster (`db` deployment) and loadbalancer (`lb` deployment) are both in AWS. The Drupal application itself will be in Openstack.
+
+![Multicloud Notes][multicloud]
+
 Execute `install` on `drupal` deployment.
 
 ![install drupal deployment][installdp]
@@ -94,3 +98,4 @@ Execute `install` workflow.
 [deploywp]: https://github.com/EarthmanT/e2e/raw/master/images/deploywp.png "Deploy wordpress Deployment"
 [deploywpb]: https://github.com/EarthmanT/e2e/raw/master/images/deploywp.png "Deploy wordpress Deployment"
 [installwp]: https://github.com/EarthmanT/e2e/raw/master/images/installwp.png "Install wordpress Deployment"
+[multicloud]: https://github.com/EarthmanT/e2e/raw/master/images/multicloud.png "Multicloud Deployment"
