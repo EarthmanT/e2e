@@ -2,15 +2,17 @@
 
 1. Create a Lab.
 2. Download the latest version of this demo from the releases page.
-3. Upload the `db` blueprint.
-4. Upload the `lb` blueprint.
-5. Upload the `drupal` blueprint.
-6. Upload the `wordpress` blueprint.
-7. Upload the `k8s` blueprint.
-8. Create a `k8s` deployment and execute `install`.
-9. Create a `drupal` deployment and execute `install`.
-10. When the `drupal` deployment is finished. Scale the database cluster.
-11. When the `k8s` deployment is finished, execute the `wordpress` deployment and execute `install`.
+3. Upload the plugin for scaling the database cluster.
+4. Create dummy secrets for the k8s cluster: `for i in kubernetes_master_ip kubernetes_certificate_authority_data kubernetes_master_port kubernetes-admin_client_key_data kubernetes-admin_client_certificate_data; do cfy secrets create -s null $i; done`
+5. Upload the `db` blueprint.
+6. Upload the `lb` blueprint.
+7. Upload the `drupal` blueprint.
+8. Upload the `wordpress` blueprint.
+9. Upload the `k8s` blueprint.
+10. Create a `k8s` deployment and execute `install`.
+11. Create a `drupal` deployment and execute `install`.
+12. When the `drupal` deployment is finished. Scale the database cluster.
+13. When the `k8s` deployment is finished, execute the `wordpress` deployment and execute `install`.
 
 
 ##  build instructions
@@ -57,18 +59,5 @@ cfy blueprints package haproxy-blueprint --output-path ~/Desktop/lb
 cfy blueprints package drupal-blueprint --output-path ~/Desktop/drupal
 cfy blueprints package db-lb-app --output-path ~/Desktop/wordpress
 cfy blueprints package cloudify-kubernetes-provider --output-path ~/Desktop/k8s
-```
-
-
-Also execute:
-```
-cfy plugins upload cloudify_dblb-0.2-py27-none-linux_x86_64-centos-Core.wgn
-for i in kubernetes_master_ip \
-         kubernetes_certificate_authority_data \
-         kubernetes_master_port \
-         kubernetes-admin_client_key_data \
-         kubernetes-admin_client_certificate_data;
-do cfy secrets create -s null $i;
-done
 ```
 
