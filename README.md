@@ -1,20 +1,72 @@
 # How to use this demo:
 
-1. Create a Lab.
-2. Download the latest version of this demo from the releases page. ![download zip files][downloadzips]
-3. Upload the plugin for scaling the database cluster. ![upload dblb plugin][uploadplugin]
-4. Create dummy secrets for the k8s cluster: `for i in kubernetes_master_ip kubernetes_certificate_authority_data kubernetes_master_port kubernetes-admin_client_key_data kubernetes-admin_client_certificate_data; do cfy secrets create -s null $i; done`
-5. Upload the `db` blueprint. ![upload db blueprint][uploaddb]
-6. Upload the `lb` blueprint. ![upload lb blueprint][uploadlb]
-7. Upload the `drupal` blueprint. ![upload drupal blueprint][uploaddp]
-8. Upload the `wordpress` blueprint. ![upload wordpress blueprint][uploadwp]
-9. Upload the `k8s` blueprint. ![upload k8s blueprint][uploadk8s]
-10. Create a `k8s` deployment. Just provide a name, you do not need to change inputs. ![create k8s deployment][createk8s]
-11. Execute `install` on `k8s` deployment. ![install k8s deployment][installk8s]
-12. Create on `drupal` deployment. Change these inputs: `new_database_user` should be `appuser`, and `proxy_manager_network` should be `external`. ![install drupal deployment][uploaddpa] ![install drupal deployment][uploaddpb]
-11. Execute `install` on `drupal` deployment. ![install drupal deployment][installdp] You will notice that the drupal deployment install creates and installs the `db` deployment. ![install db deployment][installdb] Shortly thereafter the `lb` deployment will be created and installed.
-12. When the `drupal` deployment is finished. Scale the database cluster.
-13. When the `k8s` deployment is finished, execute the `wordpress` deployment and execute `install`.
+Create a Lab.
+
+Download the latest version of this demo from the releases page. ![download zip files][downloadzips]
+
+Upload the plugin for scaling the database cluster.
+
+![upload dblb plugin][uploadplugin]
+
+Create dummy secrets for the k8s cluster: `for i in kubernetes_master_ip kubernetes_certificate_authority_data kubernetes_master_port kubernetes-admin_client_key_data kubernetes-admin_client_certificate_data; do cfy secrets create -s null $i; done`
+
+```
+for i in kubernetes_master_ip \
+         kubernetes_certificate_authority_data \
+         kubernetes_master_port \
+         kubernetes-admin_client_key_data \
+         kubernetes-admin_client_certificate_data;
+do cfy secrets create -s null $i;
+done
+```
+
+Upload the `db` blueprint.
+
+![upload db blueprint][uploaddb]
+
+Upload the `lb` blueprint.
+
+![upload lb blueprint][uploadlb]
+
+Upload the `drupal` blueprint.
+
+![upload drupal blueprint][uploaddp]
+
+Upload the `wordpress` blueprint.
+
+![upload wordpress blueprint][uploadwp]
+
+Upload the `k8s` blueprint. ![upload k8s blueprint][uploadk8s]
+
+Create a `k8s` deployment. Just provide a name, you do not need to change inputs.
+
+![create k8s deployment][createk8s]
+
+Execute `install` on `k8s` deployment.
+
+![install k8s deployment][installk8s]
+
+Create on `drupal` deployment.
+
+Change these inputs: `new_database_user` should be `appuser`, and `proxy_manager_network` should be `external`.
+
+![install drupal deployment][uploaddpa]
+
+![install drupal deployment][uploaddpb]
+
+Execute `install` on `drupal` deployment.
+
+![install drupal deployment][installdp]
+
+You will notice that the drupal deployment install creates and installs the `db` deployment. Shortly thereafter the `lb` deployment will be created and installed.
+
+![install db deployment][installdb]
+
+When the `drupal` deployment is finished. Scale the database cluster by executing the `scale and update` workflow. You'll notice that the `scale`  workflow is executed on the `db` deployment and the `execute_operation` workflow is executed on the `lb` deployment.
+
+![scale db/lb stack][scaledblb] ![scale db/lb stack][scaledblba] ![scale db/lb stack][scaledblbb]
+
+When the `k8s` deployment is finished, execute the `wordpress` deployment and execute `install`.
 
 
 ##  build instructions
@@ -76,3 +128,6 @@ cfy blueprints package cloudify-kubernetes-provider --output-path ~/Desktop/k8s
 [uploaddpb]: https://github.com/EarthmanT/e2e/raw/master/images/step12b.png "Create Drupal Deployment B"
 [installdp]: https://github.com/EarthmanT/e2e/raw/master/images/step13.png "Install Drupal Deployment"
 [installdb]: https://github.com/EarthmanT/e2e/raw/master/images/step13a.png "Install DB"
+[scaledblb]: https://github.com/EarthmanT/e2e/raw/master/images/step14.png "Scale DB/LB"
+[scaledblba]: https://github.com/EarthmanT/e2e/raw/master/images/step14a.png "Scale DB/LB A"
+[scaledblbb]: https://github.com/EarthmanT/e2e/raw/master/images/step14b.png "Scale DB/LB B"
