@@ -39,7 +39,7 @@ popd
 wget https://github.com/EarthmanT/cloudify-dblb/releases/download/0.2/cloudify_dblb-0.2-py27-none-linux_x86_64-centos-Core.wgn -O ~/Desktop/cloudify_dblb-0.2-py27-none-linux_x86_64-centos-Core.wgn
 ```
 
-**Package them for cloudify:&&
+**Package them for cloudify:**
 
 ```
 cfy blueprints package mariadb-blueprint --output-path ~/Desktop/db
