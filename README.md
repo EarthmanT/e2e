@@ -4,9 +4,20 @@ Create a Lab.
 
 Download the latest version of this demo from the releases page. ![download zip files][downloadzips]
 
+These are:
+  * aws-environment.tar.gz
+  * cloudify_dblb-0.2-py27-none-linux_x86_64-centos-Core.wgn
+  * db.tar.gz
+  * lb.tar.gz
+  * drupal.tar.gz
+  * k8s.tar.gz
+  * wordpress.tar.gz
+
+
 Upload the plugin for scaling the database cluster.
 
 ![upload dblb plugin][uploadplugin]
+
 
 Create dummy secrets for the k8s cluster: `for i in kubernetes_master_ip kubernetes_certificate_authority_data kubernetes_master_port kubernetes-admin_client_key_data kubernetes-admin_client_certificate_data; do cfy secrets create -s null $i; done`
 
@@ -19,6 +30,30 @@ for i in kubernetes_master_ip \
 do cfy secrets create -s null $i;
 done
 ```
+
+Create the `aws_access_key_id`, `aws_secret_access_key`, `availability_zone`, `ec2_region_name`, `ec2_region_endpoint` secrets:
+
+![create secrets][createsecret]
+
+Upload the `aws-environment` blueprint.
+
+![upload aws blueprint][uploadaws]
+
+Create the `aws` deployment.
+
+![create aws deployment][createaws]
+
+Install the `aws` deployment.
+
+![install aws deployment][installaws]
+
+Get the `aws` deployment outputs.
+
+![get aws deployment outputs][awsoutputs]
+
+Update the `vpc_id`, `public_subnet_id`, `private_subnet_id` and `availability_zone`.
+
+![get aws deployment outputs][awssecrets]
 
 Upload the `db` blueprint.
 
@@ -78,9 +113,13 @@ Change these inputs: `new_database_user` should be `appuser`, and `environment_b
 
 Execute `install` workflow.
 
-
 [downloadzips]: https://github.com/EarthmanT/e2e/raw/master/images/downloadzips.png "Download Zips"
 [uploadplugin]: https://github.com/EarthmanT/e2e/raw/master/images/uploadplugin.png "Upload dblb Plugin"
+[createsecret]: https://github.com/EarthmanT/e2e/raw/master/images/createsecret.png "Create Secret"
+[uploadaws]: https://github.com/EarthmanT/e2e/raw/master/images/uploadaws.png "Upload AWS"
+[createaws]: https://github.com/EarthmanT/e2e/raw/master/images/createaws.png "Create AWS Deployment"
+[installaws]: https://github.com/EarthmanT/e2e/raw/master/images/installaws.png "Install AWS Deployment"
+[awsoutputs]: https://github.com/EarthmanT/e2e/raw/master/images/awsoutputs.png "Get AWS Deployment Outputs"
 [uploaddb]: https://github.com/EarthmanT/e2e/raw/master/images/uploaddb.png "Upload db Blueprint"
 [uploadlb]: https://github.com/EarthmanT/e2e/raw/master/images/uploadlb.png "Upload lb Blueprint"
 [uploaddp]: https://github.com/EarthmanT/e2e/raw/master/images/uploaddp.png "Upload drupal Blueprint"
