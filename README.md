@@ -12,7 +12,7 @@
 10. Create a `k8s` deployment. Just provide a name, you do not need to change inputs. ![create k8s deployment][createk8s]
 11. Execute `install` on `k8s` deployment. ![install k8s deployment][installk8s]
 12. Create on `drupal` deployment. Change these inputs: `new_database_user` should be `appuser`, and `proxy_manager_network` should be `external`. ![install drupal deployment][uploaddpa] ![install drupal deployment][uploaddpb]
-11. Execute `install` on `drupal` deployment. ![install drupal deployment][installdp]
+11. Execute `install` on `drupal` deployment. ![install drupal deployment][installdp] You will notice that the drupal deployment install creates and installs the `db` deployment. ![install db deployment][installdb] Shortly thereafter the `lb` deployment will be created and installed.
 12. When the `drupal` deployment is finished. Scale the database cluster.
 13. When the `k8s` deployment is finished, execute the `wordpress` deployment and execute `install`.
 
@@ -75,3 +75,4 @@ cfy blueprints package cloudify-kubernetes-provider --output-path ~/Desktop/k8s
 [uploaddpa]: https://github.com/EarthmanT/e2e/raw/master/images/step12a.png "Create Drupal Deployment A"
 [uploaddpb]: https://github.com/EarthmanT/e2e/raw/master/images/step12b.png "Create Drupal Deployment B"
 [installdp]: https://github.com/EarthmanT/e2e/raw/master/images/step13.png "Install Drupal Deployment"
+[installdb]: https://github.com/EarthmanT/e2e/raw/master/images/step13a.png "Install DB"
