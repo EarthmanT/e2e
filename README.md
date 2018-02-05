@@ -6,14 +6,13 @@ This End-to-end solutions package uses novel applications to demonstrate Cloudif
 
 The solutions package tells the story of an organization with a private Openstack cloud and a public AWS cloud. You will reenact this story in the following demo script.
 
-
 There are several steps:
 
 * [Preparation](#preparation)
   * [Create Lab](#create-lab)
   * [Add Demo Tenant](#add-demo-tenant)
   * [Add Secrets](#add-secrets)
-  * [Install Plugins](#install-plugins)
+  * [Upload Plugins](#upload-plugins)
   * [Install Kubernetes](#install-kubernetes)
   * [Create Example Networks](#create-example-network)
 * [Demo](#demo)
@@ -21,7 +20,7 @@ There are several steps:
   * [Install Load Balancer](#install-load-balancer)
   * [Install Drupal CMS](#install-drupal)
   * [Install Wordpress CMS](#install-wordpress)
-  *
+
 
 # Preparation
 
@@ -40,7 +39,7 @@ To create a tenant, select "Tenant Management" from the left navigation menu.
 ![Create Tenant: Left Navigation Menu][create-tenant-nav]
 
 
-Locate the "Tenants Management" pane. Click **Add**.
+Locate the "Tenants Management" panel. Click **Add**.
 
 ![Create Tenant: Pane][create-tenant-section]
 
@@ -48,6 +47,14 @@ Locate the "Tenants Management" pane. Click **Add**.
 Provide a name for your demo tenant, and click **Add**.
 
 ![Create Tenant: Form][create-tenant-form]
+
+
+Activate your demo tenant by moving your mouse by selecting the demo tenant from the tenant drop-down menu in the top menu.
+
+![Select Tenant][select-tenant]
+
+
+Now that you have created the demo tenant and made it your active tenant, you can proceed to the next steps.
 
 
 ## Add Secrets
@@ -63,9 +70,47 @@ Cloudify stores your Openstack and AWS credentials as secrets.
     * `availability_zone` See _AZ Names_ in [AWSRegionsAndAZs](https://gist.github.com/neilstuartcraig/0ccefcf0887f29b7f240).
 
 
-## Install Plugins
+**For each secret listed above, create a secret with the exact name, and the appropriate value, with the create secrets form as shown below.**
 
-The blueprints that are installed in the following steps require these plugins. For each link listed below, copy the URL and paste in the upload plugins.
+On the left navigation menu, select System Resources.
+
+![Add Secrets: Left Navigation Menu][add-secrets-nav]
+
+
+Locate the "Secret Store Management" panel. Click **Create**.
+
+![Add Secrets: Panel][add-secrets-panel]
+
+
+Provide a name for your demo tenant, and click **Create**.
+
+![Add Secrets: Form][add-secrets-form]
+
+
+## Upload Plugins
+
+The blueprints that are installed in the following steps require these plugins.
+
+  * [Openstack Plugin 2.6.0](https://github.com/cloudify-cosmo/cloudify-openstack-plugin/releases/download/2.6.0/cloudify_openstack_plugin-2.6.0-py27-none-linux_x86_64-centos-Core.wgn)
+  * [AWS Plugin 1.5.1.2](https://github.com/cloudify-cosmo/cloudify-aws-plugin/releases/download/1.5.1.2/cloudify_aws_plugin-1.5.1.2-py27-none-linux_x86_64-centos-Core.wgn)
+  * [AWSSDK Plugin 1.2.0.3](https://github.com/cloudify-incubator/cloudify-awssdk-plugin/releases/download/1.2.0.3/cloudify_awssdk_plugin-1.2.0.3-py27-none-linux_x86_64-centos-Core.wgn)
+  * [Utilities Plugin 1.4.5](https://github.com/cloudify-incubator/cloudify-utilities-plugin/releases/download/1.4.5/cloudify_utilities_plugin-1.4.5-py27-none-linux_x86_64-centos-Core.wgn)
+
+**For each link listed below, upload the plugin by copying the URL and pasting it in the upload plugins form as shown below.**
+
+On the left navigation menu, select System Resources.
+
+![Upload Plugins: Left Navigation Menu][add-secrets-nav]
+
+
+Locate the "Plugins" panel. Click **Upload**.
+
+![Upload Plugins: Panel][upload-plugins-panel]
+
+
+Paste the URL in the _URL_ field and click **Upload**.
+
+![Upload Plugins: Form][upload-plugins-form]
 
 
 ## Create Example Networks
@@ -90,5 +135,11 @@ The blueprints that are installed in the following steps require these plugins. 
 
 
 [create-tenant-nav]: https://github.com/EarthmanT/e2e/raw/master/images/create-tenant-nav.png "Left Navigation Menu"
-[create-tenant-section]: https://github.com/EarthmanT/e2e/raw/master/images/create-tenant-section.png "Create Tenant Section"
+[create-tenant-section]: https://github.com/EarthmanT/e2e/raw/master/images/create-tenant-section.png "Create Tenant Panel"
 [create-tenant-form]: https://github.com/EarthmanT/e2e/raw/master/images/create-tenant-form.png "Create Tenant Form"
+[select-tenant]: https://github.com/EarthmanT/e2e/raw/master/images/select-tenant.png "Select Tenant"
+[add-secrets-nav]: https://github.com/EarthmanT/e2e/raw/master/images/add-secrets-nav.png "Left Navigation Menu"
+[add-secrets-panel]: https://github.com/EarthmanT/e2e/raw/master/images/add-secrets-panel.png "Add Secrets Panel"
+[add-secrets-form]: https://github.com/EarthmanT/e2e/raw/master/images/add-secrets-form.png "Add Secrets Form"
+[upload-plugins-panel]: https://github.com/EarthmanT/e2e/raw/master/images/upload-plugins-panel.png "Upload Plugins Panel"
+[upload-plugins-form]: https://github.com/EarthmanT/e2e/raw/master/images/upload-plugins-form.png "Upload Plugins Form"
