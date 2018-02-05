@@ -69,7 +69,6 @@ Cloudify stores your Openstack and AWS credentials as secrets.
     * `ec2_region_endpoint` See _Endpoint_ column in [Amazon EC2 Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region).
     * `availability_zone` See _AZ Names_ in [AWSRegionsAndAZs](https://gist.github.com/neilstuartcraig/0ccefcf0887f29b7f240).
 
-
 **For each secret listed above, create a secret with the exact name, and the appropriate value, with the create secrets form as shown below.**
 
 On the left navigation menu, select System Resources.
@@ -96,7 +95,7 @@ The blueprints that are installed in the following steps require these plugins.
   * [AWSSDK Plugin 1.2.0.3](https://github.com/cloudify-incubator/cloudify-awssdk-plugin/releases/download/1.2.0.3/cloudify_awssdk_plugin-1.2.0.3-py27-none-linux_x86_64-centos-Core.wgn)
   * [Utilities Plugin 1.4.5](https://github.com/cloudify-incubator/cloudify-utilities-plugin/releases/download/1.4.5/cloudify_utilities_plugin-1.4.5-py27-none-linux_x86_64-centos-Core.wgn)
 
-**For each link listed below, upload the plugin by copying the URL and pasting it in the upload plugins form as shown below.**
+**For each link listed above, upload the plugin by copying the URL and pasting it in the upload plugins form as shown below.**
 
 On the left navigation menu, select System Resources.
 
@@ -114,6 +113,42 @@ Paste the URL in the _URL_ field and click **Upload**.
 
 
 ## Create Example Networks
+
+Having created your tenant, created secrets, and uploaded plugins, you are now in a position to begin creating the environements and creating deployments. Below are the links to an Openstack network blueprint and an AWS network blueprint.
+
+  * [AWS Network Blueprint](https://github.com/cloudify-examples/aws-example-network/archive/master.zip)
+  * [Openstack Network Blueprint](https://github.com/cloudify-examples/openstack-example-network/archive/master.zip)
+
+**For each link listed below, upload the blueprint, create the deployment, and execute install as shown below.**
+
+On the left navigation menu, select Local Blueprints, the click **Upload**.
+
+![Upload Blueprints: Left Navigation Menu][blueprints-nav]
+
+
+Paste the URL in the _URL_ field, provide a _Blueprint Name_, such as `aws`, choose the _Blueprint filename_, such as `update-blueprint.yaml` and click **Upload**.
+
+![Upload Blueprints: Form][blueprints-form]
+
+
+You should now see the blueprint that you just uploaded. Click **Deploy**.
+
+![Upload Blueprints: Panel][blueprints-panel]
+
+
+Fill out the deployments form. For `Deployment name`, use the same name as the blueprint, for example `aws`. For Openstack, the input `external_network_name` should be set to `external_network`.
+
+![Create Deployments: Panel][deployment-panel]
+
+
+On the left navigation menu, select Deployments.
+
+![Create Deployments: Left Navigation Menu][deployments-nav]
+
+
+Locate the deployment that you just created and execute the install workflow.
+
+![Create Deployments: Install][deployments-install]
 
 
 ## Install Kubernetes
@@ -143,3 +178,9 @@ Paste the URL in the _URL_ field and click **Upload**.
 [add-secrets-form]: https://github.com/EarthmanT/e2e/raw/master/images/add-secrets-form.png "Add Secrets Form"
 [upload-plugins-panel]: https://github.com/EarthmanT/e2e/raw/master/images/upload-plugins-panel.png "Upload Plugins Panel"
 [upload-plugins-form]: https://github.com/EarthmanT/e2e/raw/master/images/upload-plugins-form.png "Upload Plugins Form"
+[blueprints-nav]: https://github.com/EarthmanT/e2e/raw/master/images/blueprints-nav.png "Left Navigation Menu"
+[blueprints-form]: https://github.com/EarthmanT/e2e/raw/master/images/blueprints-form.png "Upload Blueprints Form"
+[blueprints-panel]: https://github.com/EarthmanT/e2e/raw/master/images/blueprints-panel.png "Upload Blueprints Panel"
+[deployment-panel]: https://github.com/EarthmanT/e2e/raw/master/images/deployment-panel.png "Create Deployments Panel"
+[deployments-nav]: https://github.com/EarthmanT/e2e/raw/master/images/deployments-nav.png "Left Navigation menu"
+[deployments-install]: https://github.com/EarthmanT/e2e/raw/master/images/deployments-install.png "Install Deployment"
