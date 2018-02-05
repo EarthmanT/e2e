@@ -61,13 +61,24 @@ Now that you have created the demo tenant and made it your active tenant, you ca
 
 Cloudify stores your Openstack and AWS credentials as secrets.
 
-  * In the lab environment, the Openstack credentials are already stored as secrets.
-  * The user should manually add their AWS credentials, by creating the following secrets:
+  * Add your Openstack lab credentials:
+    * `keystone_username`: it is `admin`.
+    * `keystone_password`: it is `cloudify1234`.
+    * `keystone_tenant_name`: it is `admin`.
+    * `keystone_region`: it is `RegionOne`.
+    * `keystone_url`: this varies by lab, but it will be something like `http://10.10.25.1:5000/v2.0`.
+  * Add your AWS credentials, by creating the following secrets:
     * `aws_access_key_id`: See [answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
     * `aws_secret_access_key`: See [answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
     * `ec2_region_name`: See _Region_ column in [Amazon EC2 Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region).
     * `ec2_region_endpoint` See _Endpoint_ column in [Amazon EC2 Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region).
     * `availability_zone` See _AZ Names_ in [AWSRegionsAndAZs](https://gist.github.com/neilstuartcraig/0ccefcf0887f29b7f240).
+  * Add these secrets:
+    * `kubernetes_master_ip`: provide a dummy value, such as `null` or the name of the key itself.
+    * `kubernetes_certificate_authority_data`: provide a dummy value, such as `null` or the name of the key itself.
+    * `kubernetes_master_port`: provide a dummy value, such as `null` or the name of the key itself.
+    * `kubernetes-admin_client_key_data`: provide a dummy value, such as `null` or the name of the key itself.
+    * `kubernetes-admin_client_certificate_data`: provide a dummy value, such as `null` or the name of the key itself.
 
 **For each secret listed above, create a secret with the exact name, and the appropriate value, with the create secrets form as shown below.**
 
@@ -94,6 +105,7 @@ The blueprints that are installed in the following steps require these plugins.
   * [AWS Plugin 1.5.1.2](https://github.com/cloudify-cosmo/cloudify-aws-plugin/releases/download/1.5.1.2/cloudify_aws_plugin-1.5.1.2-py27-none-linux_x86_64-centos-Core.wgn)
   * [AWSSDK Plugin 1.2.0.3](https://github.com/cloudify-incubator/cloudify-awssdk-plugin/releases/download/1.2.0.3/cloudify_awssdk_plugin-1.2.0.3-py27-none-linux_x86_64-centos-Core.wgn)
   * [Utilities Plugin 1.4.5](https://github.com/cloudify-incubator/cloudify-utilities-plugin/releases/download/1.4.5/cloudify_utilities_plugin-1.4.5-py27-none-linux_x86_64-centos-Core.wgn)
+  * [Kubernetes Plugin 2.0.0](https://github.com/cloudify-incubator/cloudify-kubernetes-plugin/releases/download/2.0.0/cloudify_kubernetes_plugin-2.0.0-py27-none-linux_x86_64-centos-Core.wgn)
 
 **For each link listed above, upload the plugin by copying the URL and pasting it in the upload plugins form as shown below.**
 
@@ -150,8 +162,32 @@ Locate the deployment that you just created and execute the install workflow.
 
 ![Create Deployments: Install][deployments-install]
 
+Repeat the same process with this blueprint. Provide the `example_tenant_name` value `demo` or whatever is your demo tenant name. Also when the install execution has finished, immediately delete the deployment.
+
+  * [Agent Keys](https://github.com/cloudify-examples/helpful-blueprint/archive/master.zip)
+
 
 ## Install Kubernetes
+
+The last step of preparation for the demo is to install the Kubernetes Cluster. This cluster is based on the [Cloudify Kubernetes Provider](http://docs.getcloudify.org/4.2.0/plugins/container-support/#infrastructure-orchestration).
+
+On the left navigation menu, select Local Blueprints, the click **Upload**.
+
+![Upload Blueprints: Left Navigation Menu][blueprints-nav]
+
+
+As above, paste the [Blueprint archive URL]() in the _URL_ field, provide a _Blueprint Name_, such as `k8s`, select `openstack.yaml` as the _Blueprint filename_. Then click **Upload**.
+
+Create the deployment, there are several inputs that you need to change:
+
+  * `cfy_ssl`: this should be set to `false`.
+  * `image`: this is a Centos 7 Image ID.
+  * `network_deployment_name`: this will be the name of the Openstack network deployment that you created above.
+  * `cfy_tenant`: this will be the tenant that you created above.
+
+![Create Deployments: Form][kubernetes-create-deployment]
+
+Locate the deployment that you just created and execute the install workflow.
 
 
 # Demo
@@ -184,3 +220,4 @@ Locate the deployment that you just created and execute the install workflow.
 [deployments-nav]: https://github.com/EarthmanT/e2e/raw/final/images/deployments-nav.png "Left Navigation menu"
 [deployments-panel]: https://github.com/EarthmanT/e2e/raw/final/images/deployments-panel.png "Create Deployment"
 [deployments-install]: https://github.com/EarthmanT/e2e/raw/final/images/deployments-install.png "Install Deployment"
+[kubernetes-create-deployment]: https://github.com/EarthmanT/e2e/raw/final/images/kubernetes-create-deployment.png "Create Deployment"
