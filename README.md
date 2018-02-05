@@ -36,7 +36,7 @@ See [Create New Lab](http://labs.cloudify.co/).
 
 To create a tenant, select "Tenant Management" from the left navigation menu.
 
-![Create Tenant: Left Navigation Menu][create-tenant-nav | height=20]
+![Create Tenant: Left Navigation Menu|22][create-tenant-nav]
 
 
 Locate the "Tenants Management" panel. Click **Add**.
