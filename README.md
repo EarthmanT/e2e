@@ -1,141 +1,94 @@
-# How to use this demo:
+# End-to-end Solutions Package
 
-Create a Lab.
+This End-to-end solutions package uses novel applications to demonstrate Cloudify functionality. It is intended as a sales aid.
 
-Download the latest version of this demo from the releases page. ![download zip files][downloadzips]
+## About
 
-These are:
-  * aws-environment.tar.gz
-  * cloudify_dblb-0.2-py27-none-linux_x86_64-centos-Core.wgn
-  * db.tar.gz
-  * lb.tar.gz
-  * drupal.tar.gz
-  * k8s.tar.gz
-  * wordpress.tar.gz
+The solutions package tells the story of an organization with a private Openstack cloud and a public AWS cloud. You will reenact this story in the following demo script.
 
 
-Upload the plugin for scaling the database cluster.
+There are several steps:
 
-![upload dblb plugin][uploadplugin]
+* [Preparation](#preparation)
+  * [Create Lab](#create-lab)
+  * [Add Demo Tenant](#add-demo-tenant)
+  * [Add Secrets](#add-secrets)
+  * [Install Plugins](#install-plugins)
+  * [Install Kubernetes](#install-kubernetes)
+  * [Create Example Networks](#create-example-network)
+* [Demo](#demo)
+  * [Install Database](#install-database)
+  * [Install Load Balancer](#install-load-balancer)
+  * [Install Drupal CMS](#install-drupal)
+  * [Install Wordpress CMS](#install-wordpress)
+  *
+
+# Preparation
+
+These are steps that you need to follow in order to run the demo.
 
 
-Create dummy secrets for the k8s cluster: `for i in kubernetes_master_ip kubernetes_certificate_authority_data kubernetes_master_port kubernetes-admin_client_key_data kubernetes-admin_client_certificate_data; do cfy secrets create -s null $i; done`
+## Create Lab
 
-```
-for i in kubernetes_master_ip \
-         kubernetes_certificate_authority_data \
-         kubernetes_master_port \
-         kubernetes-admin_client_key_data \
-         kubernetes-admin_client_certificate_data;
-do cfy secrets create -s null $i;
-done
-```
+See [Create New Lab](http://labs.cloudify.co/).
 
-Create the `aws_access_key_id`, `aws_secret_access_key`, `availability_zone`, `ec2_region_name`, `ec2_region_endpoint` secrets:
 
-![create secrets][createsecret]
+## Add Demo Tenant
 
-Upload the `aws-environment` blueprint.
+To create a tenant, select "Tenant Management" from the left navigation menu.
 
-![upload aws blueprint][uploadaws]
+![Create Tenant: Left Navigation Menu][create-tenant-nav]
 
-Create the `aws` deployment.
 
-![create aws deployment][createaws]
+Locate the "Tenants Management" pane. Click **Add**.
 
-Install the `aws` deployment.
+![Create Tenant: Pane][create-tenant-section]
 
-![install aws deployment][installaws]
 
-Get the `aws` deployment outputs.
+Provide a name for your demo tenant, and click **Add**.
 
-![get aws deployment outputs][awsoutputs]
+![Create Tenant: Form][create-tenant-form]
 
-Update the secrets `vpc_id`, `public_subnet_id`, `private_subnet_id` and `availability_zone`.
 
-![create aws secrets][awssecrets]
+## Add Secrets
 
-Upload the `db` blueprint.
+Cloudify stores your Openstack and AWS credentials as secrets.
 
-![upload db blueprint][uploaddb]
+  * In the lab environment, the Openstack credentials are already stored as secrets.
+  * The user should manually add their AWS credentials, by creating the following secrets:
+    * `aws_access_key_id`: See [answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
+    * `aws_secret_access_key`: See [answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
+    * `ec2_region_name`: See _Region_ column in [Amazon EC2 Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region).
+    * `ec2_region_endpoint` See _Endpoint_ column in [Amazon EC2 Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region).
+    * `availability_zone` See _AZ Names_ in [AWSRegionsAndAZs](https://gist.github.com/neilstuartcraig/0ccefcf0887f29b7f240).
 
-Upload the `lb` blueprint.
 
-![upload lb blueprint][uploadlb]
+## Install Plugins
 
-Upload the `drupal` blueprint.
+The blueprints that are installed in the following steps require these plugins. For each link listed below, copy the URL and paste in the upload plugins.
 
-![upload drupal blueprint][uploaddp]
 
-Upload the `wordpress` blueprint.
+## Create Example Networks
 
-![upload wordpress blueprint][uploadwp]
 
-Upload the `k8s` blueprint. ![upload k8s blueprint][uploadk8s]
+## Install Kubernetes
 
-Create a `k8s` deployment. Just provide a name, you do not need to change inputs.
 
-![create k8s deployment][createk8s]
+# Demo
 
-Execute `install` on `k8s` deployment.
 
-![install k8s deployment][installk8s]
+## Install Database
 
-Create on `drupal` deployment.
 
-Change these inputs: `new_database_user` should be `appuser`, and `proxy_manager_network` should be `external`.
+## Install Load Balancer
 
-![install drupal deployment][uploaddpa]
 
-![install drupal deployment][uploaddpb]
+## Install Drupal
 
-Notice that the drupal deployment will create some resources in AWS and Openstack. The database cluster (`db` deployment) and loadbalancer (`lb` deployment) are both in AWS. The Drupal application itself will be in Openstack.
 
-![Multicloud Notes][multicloud]
+## Install Wordpress
 
-Execute `install` on `drupal` deployment.
 
-![install drupal deployment][installdp]
-
-You will notice that the drupal deployment install creates and installs the `db` deployment. Shortly thereafter the `lb` deployment will be created and installed.
-
-![install db deployment][installdb]
-
-When the `drupal` deployment is finished. Scale the database cluster by executing the `scale and update` workflow. You'll notice that the `scale`  workflow is executed on the `db` deployment and the `execute_operation` workflow is executed on the `lb` deployment.
-
-![scale db/lb stack][scaledblb] ![scale db/lb stack][scaledblba] ![scale db/lb stack][scaledblbb]
-
-When the `k8s` deployment is finished, create the `wordpress` deployment.
-
-Change these inputs: `new_database_user` should be `appuser`, and `environment_blueprint_filename` should be `aws-blueprint.yaml`.
-
-![create wp deployment][deploywp] ![create wp deployment][deploywpb]
-
-Execute `install` workflow.
-
-[downloadzips]: https://github.com/EarthmanT/e2e/raw/master/images/downloadzips.png "Download Zips"
-[uploadplugin]: https://github.com/EarthmanT/e2e/raw/master/images/uploadplugin.png "Upload dblb Plugin"
-[createsecret]: https://github.com/EarthmanT/e2e/raw/master/images/createsecret.png "Create Secret"
-[uploadaws]: https://github.com/EarthmanT/e2e/raw/master/images/uploadaws.png "Upload AWS"
-[createaws]: https://github.com/EarthmanT/e2e/raw/master/images/createaws.png "Create AWS Deployment"
-[installaws]: https://github.com/EarthmanT/e2e/raw/master/images/installaws.png "Install AWS Deployment"
-[awsoutputs]: https://github.com/EarthmanT/e2e/raw/master/images/awsoutputs.png "Get AWS Deployment Outputs"
-[awssecrets]: https://github.com/EarthmanT/e2e/raw/master/images/awssecrets.png "Create AWS Secrets"
-[uploaddb]: https://github.com/EarthmanT/e2e/raw/master/images/uploaddb.png "Upload db Blueprint"
-[uploadlb]: https://github.com/EarthmanT/e2e/raw/master/images/uploadlb.png "Upload lb Blueprint"
-[uploaddp]: https://github.com/EarthmanT/e2e/raw/master/images/uploaddp.png "Upload drupal Blueprint"
-[uploadwp]: https://github.com/EarthmanT/e2e/raw/master/images/uploadwp.png "Upload wordpress Blueprint"
-[uploadk8s]: https://github.com/EarthmanT/e2e/raw/master/images/uploadk8s.png "Upload k8s Blueprint"
-[createk8s]: https://github.com/EarthmanT/e2e/raw/master/images/createk8s.png "Create k8s Deployment"
-[installk8s]: https://github.com/EarthmanT/e2e/raw/master/images/installk8s.png "Install k8s Deployment"
-[uploaddpa]: https://github.com/EarthmanT/e2e/raw/master/images/uploaddpa.png "Create Drupal Deployment A"
-[uploaddpb]: https://github.com/EarthmanT/e2e/raw/master/images/uploaddpb.png "Create Drupal Deployment B"
-[installdp]: https://github.com/EarthmanT/e2e/raw/master/images/installdp.png "Install Drupal Deployment"
-[installdb]: https://github.com/EarthmanT/e2e/raw/master/images/installdb.png "Install DB"
-[scaledblb]: https://github.com/EarthmanT/e2e/raw/master/images/scaledblb.png "Scale DB/LB"
-[scaledblba]: https://github.com/EarthmanT/e2e/raw/master/images/scaledblba.png "Scale DB/LB A"
-[scaledblbb]: https://github.com/EarthmanT/e2e/raw/master/images/scaledblbb.png "Scale DB/LB B"
-[deploywp]: https://github.com/EarthmanT/e2e/raw/master/images/deploywp.png "Deploy wordpress Deployment"
-[deploywpb]: https://github.com/EarthmanT/e2e/raw/master/images/deploywp.png "Deploy wordpress Deployment"
-[installwp]: https://github.com/EarthmanT/e2e/raw/master/images/installwp.png "Install wordpress Deployment"
-[multicloud]: https://github.com/EarthmanT/e2e/raw/master/images/multicloud.png "Multicloud Deployment"
+[create-tenant-nav]: https://github.com/EarthmanT/e2e/raw/master/images/create-tenant-nav.png "Left Navigation Menu"
+[create-tenant-section]: https://github.com/EarthmanT/e2e/raw/master/images/create-tenant-section.png "Create Tenant Section"
+[create-tenant-form]: https://github.com/EarthmanT/e2e/raw/master/images/create-tenant-form.png "Create Tenant Form"
