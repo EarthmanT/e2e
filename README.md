@@ -138,7 +138,7 @@ You should now see the blueprint that you just uploaded. Click **Deploy**.
 
 Fill out the deployments form. For `Deployment name`, use the same name as the blueprint, for example `aws`. For Openstack, the input `external_network_name` should be set to `external_network`.
 
-![Create Deployments: Panel][deployment-panel]
+![Create Deployments: Panel][deployments-panel]
 
 
 On the left navigation menu, select Deployments.
