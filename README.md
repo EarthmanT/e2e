@@ -182,4 +182,5 @@ Locate the deployment that you just created and execute the install workflow.
 [blueprints-form]: https://github.com/EarthmanT/e2e/raw/final/images/blueprints-form.png "Upload Blueprints Form"
 [blueprints-panel]: https://github.com/EarthmanT/e2e/raw/final/images/blueprints-panel.png "Upload Blueprints Panel"
 [deployments-nav]: https://github.com/EarthmanT/e2e/raw/final/images/deployments-nav.png "Left Navigation menu"
+[deployments-panel]: https://github.com/EarthmanT/e2e/raw/final/images/deployments-panel.png "Create Deployment"
 [deployments-install]: https://github.com/EarthmanT/e2e/raw/final/images/deployments-install.png "Install Deployment"
