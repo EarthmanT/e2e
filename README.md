@@ -201,19 +201,19 @@ To install the database:
         1. In the Blueprint filename list, select `aws.yaml`.
     1. Click **Upload**.
 
-![Upload Blueprints: Database][upload-blueprints-database]
+    ![Upload Blueprints: Database][upload-blueprints-database]
 
 1. Deploy the database blueprint:
     1. On the new database blueprint, click **Deploy**.
 
-![Create Deployments: Panel][database-create-panel]
+       ![Create Deployments: Panel][database-create-panel]
 
     1. Enter the deployment details:
         1. In the Deployment name field, enter the same name as the blueprint. (For example, `db`)
         1. In the network_deployment_name field, enter your AWS network deployment name. In the preparation steps we named it `aws`.
     1. Click **Deploy**.
   
-![Create Deployments: Form][database-create-form]
+    ![Create Deployments: Form][database-create-form]
 
 1. In the Deployments page, execute the install workflow for the `db` deployment.
 
@@ -231,24 +231,24 @@ Our load balancer is hosted in AWS. It exposes the database deployment as a serv
 To install the load balancer:
 
 1. Upload the load balancer blueprint:
-  1. In the Local Blueprints page, click **Upload**.
-  1. Enter the blueprint details:
-    1. In the blueprint package URL, enter: `https://github.com/cloudify-examples/haproxy-blueprint/archive/e2e.zip`
-    1. Enter a _Blueprint Name_, such as `lb`.
-    1. In the Blueprint filename list, select `aws.yaml`.
-  1. Click **Upload**.
+    1. In the Local Blueprints page, click **Upload**.
+        1. Enter the blueprint details:
+        1. In the blueprint package URL, enter: `https://github.com/cloudify-examples/haproxy-blueprint/archive/e2e.zip`
+        1. Enter a _Blueprint Name_, such as `lb`.
+        1. In the Blueprint filename list, select `aws.yaml`.
+    1. Click **Upload**.
 
-![Upload Blueprints: Load Balancer][upload-blueprints-loadbalancer]
+    ![Upload Blueprints: Load Balancer][upload-blueprints-loadbalancer]
 
 1. Deploy the database blueprint:
-  1. On the new database blueprint, click **Deploy**.
-  1. Enter the deployment details:
-    1. In the Deployment name field, enter the same name as the blueprint. (For example, `lb`)
-    1. In the network_deployment_name field, enter your AWS network deployment name. In the preparation steps we named it `aws`.
-    1. In the application_ip field, enter the single IP of the database deployment `cluster_addresses`.
-  1. Click **Deploy**.
+    1. On the new database blueprint, click **Deploy**.
+    1. Enter the deployment details:
+        1. In the Deployment name field, enter the same name as the blueprint. (For example, `lb`)
+        1. In the network_deployment_name field, enter your AWS network deployment name. In the preparation steps we named it `aws`.
+        1. In the application_ip field, enter the single IP of the database deployment `cluster_addresses`.
+    1. Click **Deploy**.
   
-![Create Deployments: Form][loadbalancer-create-form]
+    ![Create Deployments: Form][loadbalancer-create-form]
 
 1. In the Deployments page, execute the install workflow for the `lb` deployment.
 
@@ -266,27 +266,27 @@ _There are Drupal blueprints for AWS, Azure, and Openstack. Any of them can be u
 To install the front-end application:
 
 1. Upload the Drupal blueprint:
-  1. In the Local Blueprints page, click **Upload**.
-  1. Enter the blueprint details:
-    1. In the blueprint package URL, enter: `https://github.com/cloudify-examples/drupal-blueprint/archive/e2e.zip`
-    1. Enter a _Blueprint Name_, such as `drupal`.
-    1. In the Blueprint filename list, select `openstack.yaml`.
-  1. Click **Upload**.
+    1. In the Local Blueprints page, click **Upload**.
+    1. Enter the blueprint details:
+        1. In the blueprint package URL, enter: `https://github.com/cloudify-examples/drupal-blueprint/archive/e2e.zip`
+        1. Enter a _Blueprint Name_, such as `drupal`.
+        1. In the Blueprint filename list, select `openstack.yaml`.
+    1. Click **Upload**.
 
-![Upload Blueprints: Drupal][upload-blueprints-drupal]
+    ![Upload Blueprints: Drupal][upload-blueprints-drupal]
 
 1. Deploy the database blueprint:
-  1. On the new database blueprint, click **Deploy**.
-  1. Enter the deployment details:
-    1. In the Deployment name field, enter the same name as the blueprint. (For example, `drupal`)
-    1. In the db_deployment field, enter your database deployment name. (For example, `db`)
-    1. In the lb_deployment field, enter your database deployment name. (For example, `lb`)
-    1. In the image field, enter your Openstack Ubuntu 14 image, which should be `05bb3a46-ca32-4032-bedd-8d7ebd5c8100`.
-    1. In the network_deployment_name field, enter your AWS network deployment name. In the preparation steps we named it `openstack`.
-    1. In the application_ip field, enter the single IP of the database deployment `cluster_addresses`.
-  1. Click **Deploy**.
+    1. On the new database blueprint, click **Deploy**.
+    1. Enter the deployment details:
+        1. In the Deployment name field, enter the same name as the blueprint. (For example, `drupal`)
+        1. In the db_deployment field, enter your database deployment name. (For example, `db`)
+        1. In the lb_deployment field, enter your database deployment name. (For example, `lb`)
+        1. In the image field, enter your Openstack Ubuntu 14 image, which should be `05bb3a46-ca32-4032-bedd-8d7ebd5c8100`.
+        1. In the network_deployment_name field, enter your AWS network deployment name. In the preparation steps we named it `openstack`.
+        1. In the application_ip field, enter the single IP of the database deployment `cluster_addresses`.
+    1. Click **Deploy**.
   
-![Create Deployments: Form][drupal-create-form]
+    ![Create Deployments: Form][drupal-create-form]
 
 1. In the Deployments page, execute the install workflow for the `drupal` deployment.
 
@@ -298,24 +298,24 @@ In the meantime, explore the deployment. To access the Drupal front end, you nee
 Our next front end application in this demo is a Wordpress application. It is served in Kubernetes. It accesses and stores data in our database hosted in AWS through the load balancer in AWS, just like the Drupal front end.
 
 1. Upload the Wordpress blueprint:
-  1. In the Local Blueprints page, click **Upload**.
-  1. Enter the blueprint details:
-    1. In the blueprint package URL, enter: `https://github.com/EarthmanT/db-lb-app/archive/e2e.zip`
-    1. Enter a _Blueprint Name_, such as `wordpress`.
-    1. In the Blueprint filename list, select `blueprint.yaml`.
-  1. Click **Upload**.
+    1. In the Local Blueprints page, click **Upload**.
+    1. Enter the blueprint details:
+        1. In the blueprint package URL, enter: `https://github.com/EarthmanT/db-lb-app/archive/e2e.zip`
+        1. Enter a _Blueprint Name_, such as `wordpress`.
+        1. In the Blueprint filename list, select `blueprint.yaml`.
+    1. Click **Upload**.
 
-![Upload Blueprints: Wordpress][upload-blueprints-wordpress]
+    ![Upload Blueprints: Wordpress][upload-blueprints-wordpress]
 
 1. Deploy the database blueprint:
-  1. On the new database blueprint, click **Deploy**.
-  1. Enter the deployment details:
-    1. In the Deployment name field, enter the same name as the blueprint. (For example, `wordpress`)
-    1. In the db_deployment field, enter your database deployment name. (For example, `db`)
-    1. In the lb_deployment field, enter your database deployment name. (For example, `lb`)
-  1. Click **Deploy**.
+    1. On the new database blueprint, click **Deploy**.
+    1. Enter the deployment details:
+        1. In the Deployment name field, enter the same name as the blueprint. (For example, `wordpress`)
+        1. In the db_deployment field, enter your database deployment name. (For example, `db`)
+        1. In the lb_deployment field, enter your database deployment name. (For example, `lb`)
+    1. Click **Deploy**.
   
-![Create Deployments: Form][wordpress-create-form]
+    ![Create Deployments: Form][wordpress-create-form]
 
 1. In the Deployments page, execute the install workflow for the `wordpress` deployment.
 
