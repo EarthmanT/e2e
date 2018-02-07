@@ -197,7 +197,7 @@ To install the database:
     1. In the Local Blueprints page, click **Upload**.
     1. Enter the blueprint details:
         1. In the blueprint package URL, enter: `https://github.com/cloudify-examples/mariadb-blueprint/archive/e2e.zip`
-        1. Enter a _Blueprint Name_, such as `db`.
+        1. Enter a _Blueprint Name_. (For example, `db`)
         1. In the Blueprint filename list, select `aws.yaml`.
     1. Click **Upload**.
 
@@ -234,7 +234,7 @@ To install the load balancer:
     1. In the Local Blueprints page, click **Upload**.
         1. Enter the blueprint details:
         1. In the blueprint package URL, enter: `https://github.com/cloudify-examples/haproxy-blueprint/archive/e2e.zip`
-        1. Enter a _Blueprint Name_, such as `lb`.
+        1. Enter a _Blueprint Name_. (For example, `lb`)
         1. In the Blueprint filename list, select `aws.yaml`.
     1. Click **Upload**.
 
@@ -269,7 +269,7 @@ To install the front-end application:
     1. In the Local Blueprints page, click **Upload**.
     1. Enter the blueprint details:
         1. In the blueprint package URL, enter: `https://github.com/cloudify-examples/drupal-blueprint/archive/e2e.zip`
-        1. Enter a _Blueprint Name_, such as `drupal`.
+        1. Enter a _Blueprint Name_. (For example, `drupal`)
         1. In the Blueprint filename list, select `openstack.yaml`.
     1. Click **Upload**.
 
@@ -301,7 +301,7 @@ Our next front end application in this demo is a Wordpress application. It is se
     1. In the Local Blueprints page, click **Upload**.
     1. Enter the blueprint details:
         1. In the blueprint package URL, enter: `https://github.com/EarthmanT/db-lb-app/archive/e2e.zip`
-        1. Enter a _Blueprint Name_, such as `wordpress`.
+        1. Enter a _Blueprint Name_. (For example, `wordpress`)
         1. In the Blueprint filename list, select `blueprint.yaml`.
     1. Click **Upload**.
 
