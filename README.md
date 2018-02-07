@@ -232,10 +232,10 @@ To install the load balancer:
 
 1. Upload the load balancer blueprint:
     1. In the Local Blueprints page, click **Upload**.
-        1. Enter the blueprint details:
+    1. Enter the blueprint details:
         1. In the blueprint package URL, enter: `https://github.com/cloudify-examples/haproxy-blueprint/archive/e2e.zip`
         1. Enter a _Blueprint Name_. (For example, `lb`)
-        1. In the Blueprint filename list, select `aws.yaml`.
+        1. In the Blueprint filename list, select `aws.yaml`.
     1. Click **Upload**.
 
     ![Upload Blueprints: Load Balancer][upload-blueprints-loadbalancer]
