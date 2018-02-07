@@ -1,22 +1,22 @@
-# End-to-end Solutions Package
+# End-to-end Solution Package
 
-This End-to-end solutions package uses novel applications to demonstrate Cloudify functionality. It is intended as a sales aid.
+This end-to-end solution package uses pre-configured applications to demonstrate Cloudify functionality. It is intended as a sales aid.
 
-The solutions package tells the story of an organization with a private Openstack cloud and a public AWS cloud. You will reenact this story in the following demo script.
+The solution package tells the story of an organization with a private Openstack cloud and a public AWS cloud. You can use the story steps to demonstrate the story.
 
-The following Cloudify features are used:
+The story in the end-to-end solution package covers these Cloudify features:
 
-  * Multiple Management Networks (Multi-Cloud).
-  * Traditional VMs, Containers, and Kubernetes Orchestration (Hybrid-Cloud).
-  * Multi-tenancy.
-  * Deployment Proxy (Deployments as a Service).
-  * Secrets, both tenant-wide and global.
-  * Scaling.
+  * Multiple management networks (Multi-cloud)
+  * Traditional VMs, containers, and Kubernetes orchestration (Hybrid-cloud)
+  * Multi-tenancy
+  * Deployment proxy (Deployments as a Service)
+  * Global and tenant secrets
+  * Scaling
 
 
-## Table of Contents
+## Story Steps
 
-There are several steps:
+There are several steps in this story:
 
 * [Preparation](#preparation)
   * [Create Lab](#create-lab)
@@ -34,12 +34,12 @@ There are several steps:
 
 # Preparation
 
-These are steps that you need to follow in order to run the demo.
+These steps prepare the environment that is required for you to demonstrate the story.
 
 
 ## Create Lab
 
-See [Create New Lab](http://labs.cloudify.co/).
+[Create a new Cloudify lab.](http://labs.cloudify.co/)
 
 
 ## Install Kubernetes
