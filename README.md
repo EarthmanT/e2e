@@ -194,24 +194,24 @@ Our database is hosted in AWS. The blueprint that we use for the demo is a Maria
 To install the database:
 
 1. Upload the database blueprint:
-  1. In the Local Blueprints page, click **Upload**.
-  1. Enter the blueprint details:
-    1. In the blueprint package URL, enter: `https://github.com/cloudify-examples/mariadb-blueprint/archive/e2e.zip`
-    1. Enter a _Blueprint Name_, such as `db`.
-    1. In the Blueprint filename list, select `aws.yaml`.
-  1. Click **Upload**.
+    1. In the Local Blueprints page, click **Upload**.
+    1. Enter the blueprint details:
+        1. In the blueprint package URL, enter: `https://github.com/cloudify-examples/mariadb-blueprint/archive/e2e.zip`
+        1. Enter a _Blueprint Name_, such as `db`.
+        1. In the Blueprint filename list, select `aws.yaml`.
+    1. Click **Upload**.
 
 ![Upload Blueprints: Database][upload-blueprints-database]
 
 1. Deploy the database blueprint:
-  1. On the new database blueprint, click **Deploy**.
+    1. On the new database blueprint, click **Deploy**.
 
 ![Create Deployments: Panel][database-create-panel]
 
-  1. Enter the deployment details:
-    1. In the Deployment name field, enter the same name as the blueprint. (For example, `db`)
-    1. In the network_deployment_name field, enter your AWS network deployment name. In the preparation steps we named it `aws`.
-  1. Click **Deploy**.
+    1. Enter the deployment details:
+        1. In the Deployment name field, enter the same name as the blueprint. (For example, `db`)
+        1. In the network_deployment_name field, enter your AWS network deployment name. In the preparation steps we named it `aws`.
+    1. Click **Deploy**.
   
 ![Create Deployments: Form][database-create-form]
 
