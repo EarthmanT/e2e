@@ -44,46 +44,54 @@ These steps prepare the environment that is required for you to demonstrate the 
 
 ## Install Kubernetes
 
-The first step of preparation for the demo is to install the Kubernetes Cluster. We run it first, because it needs to be in the default_tenant, and also because it takes a really long time to complete installation and you can run all other parts of the demo without it. It also demonstrates multi-tenancy and global secrets. This cluster is based on the [Cloudify Kubernetes Provider](http://docs.getcloudify.org/4.2.0/plugins/container-support/#infrastructure-orchestration). It has been modified specifically for this demo.
+The first step of preparation for the demo is to install the Kubernetes cluster. We run it first because it needs to be in the default_tenant. It also takes a long time to complete installation and you can run all other parts of the demo without it. The Kubernetes cluster demonstrates multi-tenancy and global secrets. This cluster is based on the [Cloudify Kubernetes Provider](http://docs.getcloudify.org/4.2.0/plugins/container-support/#infrastructure-orchestration) and is modified specifically for this demo.
 
-On the left navigation menu, select Local Blueprints, the click **Upload**.
+To install the Kubernetes cluster:
 
-![Upload Blueprints: Left Navigation Menu][blueprints-nav]
+1. Upload the Kubernetes cluster blueprint:
+    1. In the Local Blueprints page, click **Upload**.
+    1. Enter the blueprint details:
+        1. In the blueprint package URL, enter: `https://github.com/EarthmanT/e2e/releases/download/k8s-e2e-download/k8s-e2e.zip`
+        1. Enter a _Blueprint Name_ (for example, `k8s`) and select the Blueprint filename `openstack.yaml`.
+    1. Click **Upload**.
 
-[Right-click and copy the Blueprint archive URL](https://github.com/EarthmanT/e2e/releases/download/k8s-e2e-download/k8s-e2e.zip) and paste in the _URL_ field, provide a _Blueprint Name_, such as `k8s`, select `openstack.yaml` as the _Blueprint filename_. Then click **Upload**.
+    ![Upload Blueprints: Form][kubernetes-upload-blueprint]
 
-_Help: If uploading from the UI takes a long time or fails, because of the size of the `zip` file, it may be a good idea to upload via the CLI._
+:Warning: If the upload takes a long time or fails because of the size of the `zip` file, we recommend that you use the CLI to upload the file.
 
-![Upload Blueprints: Form][kubernetes-upload-blueprint]
-
-Create the deployment:
-
-![Create Deployments: Form][kubernetes-create-deployment]
-
-Locate the deployment that you just created and execute the install workflow.
+1. Deploy the database blueprint:
+    1. On the new database blueprint, click **Deploy**.
+    1. Enter the deployment details:
+        1. In the Deployment name field, enter the same name as the blueprint. (For example, `k8s`)
+        1. In the network_deployment_name field, enter your Openstack network deployment name. In the preparation steps we named it `openstack`.
+    1. Click **Deploy**.
+  
+    ![Create Deployments: Form][kubernetes-create-deployment]
 
 
 ## Add Demo Tenant
 
-Creating a demo tenant is necessary for demonstrating multi-tenancy. You will install the database, load balancer, and demo front end applications in this tenant.
+The end-to-end solution uses a demo tenant to demonstrate multi-tenancy. You install the database, load balancer, and front-end applications in this tenant.
 
-To create a tenant, select "Tenant Management" from the left navigation menu.
+To create a tenant:
 
-![Create Tenant: Left Navigation Menu][create-tenant-nav]
+1. Go to the Tenant Management page.
 
-Locate the "Tenants Management" panel. Click **Add**.
+  ![Create Tenant: Left Navigation Menu][create-tenant-nav]
 
-![Create Tenant: Pane][create-tenant-section]
+1. In the Tenants Management, click **Add**.
 
-Provide a name for your demo tenant, and click **Add**.
+  ![Create Tenant: Pane][create-tenant-section]
 
-![Create Tenant: Form][create-tenant-form]
+1. Enter a name for your demo tenant, and click **Add**.
 
-Activate your demo tenant by moving your mouse by selecting the demo tenant from the tenant drop-down menu in the top menu.
+  ![Create Tenant: Form][create-tenant-form]
 
-![Select Tenant][select-tenant]
+1. To activate your demo tenant, select the demo tenant from the tenant menu.
 
-Now that you have created the demo tenant and made it your active tenant, you can proceed to the next steps.
+  ![Select Tenant][select-tenant]
+
+Now that you created the demo tenant and selected it as your active tenant, you can continue with the next steps.
 
 
 ## Add Secrets
@@ -91,41 +99,40 @@ Now that you have created the demo tenant and made it your active tenant, you ca
 Cloudify stores your Openstack and AWS credentials as secrets.
 
   * These secrets are required for Openstack:
-    * `keystone_username`: it is `admin`.
-    * `keystone_password`: it is `cloudify1234`.
-    * `keystone_tenant_name`: it is `admin`.
-    * `keystone_region`: it is `RegionOne`.
+    * `keystone_username`: `admin`
+    * `keystone_password`: `cloudify1234`
+    * `keystone_tenant_name`: `admin`
+    * `keystone_region`: `RegionOne`
     * `keystone_url`: this varies by lab, but it will be something like `http://10.10.25.1:5000/v2.0`.
 
 **In the lab, your Openstack credentials are already set. However, if you want to modify the them, validate the values against your API configuration. This can be found in your Openstack Dashboard (http://YOUR.LAB.IP/dashboard/project/access_and_security/).**
 
   * Add your AWS credentials, by creating the following secrets:
-    * `aws_access_key_id`: See [answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
-    * `aws_secret_access_key`: See [answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
+    * `aws_access_key_id`: See [Stack Overflow answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
+    * `aws_secret_access_key`: See [Stack Overflow answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
     * `ec2_region_name`: See _Region_ column in [Amazon EC2 Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region).
     * `ec2_region_endpoint` See _Endpoint_ column in [Amazon EC2 Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region).
     * `availability_zone` See _AZ Names_ in [AWSRegionsAndAZs](https://gist.github.com/neilstuartcraig/0ccefcf0887f29b7f240).
 
-The Kubernetes Deployment that you installed above will add secrets to the default_tenant with global visibility. These will be consumed, however, from the demo tenant.
+The Kubernetes deployment that you installed adds secrets to the default_tenant with global visibility. They are used by the demo tenant.
 
-**For each secret listed above, create a secret with the exact name, and the appropriate value, with the create secrets form as shown below.**
+**For each secret listed above, create a secret with the exact name and the appropriate value with the create secrets form as shown below.**
 
-On the left navigation menu, select System Resources.
+1. Go to the System Resources page.
 
-![Add Secrets: Left Navigation Menu][add-secrets-nav]
+  ![Add Secrets: Left Navigation Menu][add-secrets-nav]
 
-Locate the "Secret Store Management" panel. Click **Create**.
+1. In the "Secret Store Management" panel, click **Create**.
 
-![Add Secrets: Panel][add-secrets-panel]
+  ![Add Secrets: Panel][add-secrets-panel]
 
-Provide a name for your demo tenant, and click **Create**.
+1. Enter a name for your demo tenant, and click **Create**.
 
-![Add Secrets: Form][add-secrets-form]
-
+  ![Add Secrets: Form][add-secrets-form]
 
 ## Upload Plugins
 
-The blueprints that are installed in the demo require the following plugins.
+The blueprints installed in the demo require these plugins:
 
   * [Openstack Plugin 2.6.0](https://github.com/cloudify-cosmo/cloudify-openstack-plugin/releases/download/2.6.0/cloudify_openstack_plugin-2.6.0-py27-none-linux_x86_64-centos-Core.wgn)
   * [AWS Plugin 1.5.1.2](https://github.com/cloudify-cosmo/cloudify-aws-plugin/releases/download/1.5.1.2/cloudify_aws_plugin-1.5.1.2-py27-none-linux_x86_64-centos-Core.wgn)
@@ -133,58 +140,58 @@ The blueprints that are installed in the demo require the following plugins.
   * [Utilities Plugin 1.4.5](https://github.com/cloudify-incubator/cloudify-utilities-plugin/releases/download/1.4.5/cloudify_utilities_plugin-1.4.5-py27-none-linux_x86_64-centos-Core.wgn)
   * [Kubernetes Plugin 2.0.0](https://github.com/cloudify-incubator/cloudify-kubernetes-plugin/releases/download/2.0.0/cloudify_kubernetes_plugin-2.0.0-py27-none-linux_x86_64-centos-Core.wgn)
 
-**For each link listed above, upload the plugin by copying the URL and pasting it in the upload plugins form as shown below.**
+**To upload each plugin from the list, copy the URL and paste it in the upload plugins form:**
 
-On the left navigation menu, select System Resources.
+1. Go to the System Resources page.
 
-![Upload Plugins: Left Navigation Menu][add-secrets-nav]
+  ![Upload Plugins: Left Navigation Menu][add-secrets-nav]
 
-Locate the "Plugins" panel. Click **Upload**.
+1. In the Plugins panel, click **Upload**.
 
-![Upload Plugins: Panel][upload-plugins-panel]
+  ![Upload Plugins: Panel][upload-plugins-panel]
 
-Paste the URL in the _URL_ field and click **Upload**.
+1. Paste the URL in the _URL_ field and click **Upload**.
 
-![Upload Plugins: Form][upload-plugins-form]
+  ![Upload Plugins: Form][upload-plugins-form]
 
 
 ## Create Example Networks
 
-Having created your tenant, created secrets, and uploaded plugins, you are now in a position to prepare the IaaS environments. In this demo, and all new examples, we handle network creating via network blueprints. These can be thought of a "Network as a Service" deployments. 
+Now that you created your tenant, created secrets, and uploaded plugins, you can prepare the IaaS environments. In this demo and all new examples, we create networks with network blueprints. You can think if this process as a "Network as a Service" deployments.
 
-In this demo, you will need two "Network as a Service" deployments. One for AWS and one for Openstack:
+In this demo, you need two "Network as a Service" deployments: one for AWS and one for Openstack.
 
   * [AWS Network Blueprint](https://github.com/cloudify-examples/aws-example-network/archive/master.zip)
   * [Openstack Network Blueprint](https://github.com/cloudify-examples/openstack-example-network/archive/master.zip)
   * [Agent Keys](https://github.com/cloudify-examples/helpful-blueprint/archive/master.zip): This is not a network blueprint, but creates the agents SSH key pairs that are used in the demo blueprints.
 
-**For each link listed above, upload the blueprint, create the deployment, and execute install as shown below.**
+**For each component: upload the blueprint, create the deployment, and execute install:**
 
-On the left navigation menu, select Local Blueprints, the click **Upload**.
-
-![Upload Blueprints: Left Navigation Menu][blueprints-nav]
-
-Right-click on the name of the blueprint above to copy the link and paste it in the _URL_ field, provide a _Blueprint Name_, such as `aws` or `openstack`. Choose the _Blueprint filename_, for AWS this is `update-blueprint.yaml` and for Openstack this is `simple-blueprint.yaml`. Click **Upload**.
+1. Upload the Kubernetes cluster blueprint:
+    1. In the Local Blueprints page, click **Upload**.
+    1. Enter the blueprint details:
+        1. In the blueprint package URL, enter the URL for the component. (Right-click the component name and copy the link)
+        1. Enter a _Blueprint Name_ (for example, `aws` or `openstack`) and select the Blueprint filename. For AWS this is `update-blueprint.yaml` and for Openstack this is `simple-blueprint.yaml`.
+    1. Click **Upload**.
 
 _In the AWS package, there is a `simple-blueprint.yaml` blueprint and an `update-blueprint.yaml`. If you want to show deployment update, you can first deploy the `simple-blueprint.yaml` and update the deployment with the `update-blueprint.yaml` blueprint._
 
-![Upload Blueprints: Form][blueprints-form]
+    ![Upload Blueprints: Form][blueprints-form]
 
-You should now see the blueprint that you just uploaded. Click **Deploy**.
+:Warning: If the upload takes a long time or fails because of the size of the `zip` file, we recommend that you use the CLI to upload the file.
 
-![Upload Blueprints: Panel][blueprints-panel]
+1. Deploy the blueprint:
+    1. On the new blueprint, click **Deploy**.
+    1. Enter the deployment details:
+        1. In the Deployment name field, enter the same name as the blueprint. (For example, `aws`)
+        1. In the network_deployment_name field for your Openstack network deployment, enter `external_network` for the `external_network_name` input.
+    1. Click **Deploy**.
+  
+    ![Create Deployments: Panel][deployments-panel]
 
-Fill out the deployments form. For `Deployment name`, use the same name as the blueprint, for example `aws`. For the Openstack network deployment, the input `external_network_name` should be set to `external_network`.
+1. Find the deployment that you created and execute the install workflow.
 
-![Create Deployments: Panel][deployments-panel]
-
-On the left navigation menu, select Deployments.
-
-![Create Deployments: Left Navigation Menu][deployments-nav]
-
-Locate the deployment that you just created and execute the install workflow.
-
-![Create Deployments: Install][deployments-install]
+  ![Create Deployments: Install][deployments-install]
 
 
 # Demo
