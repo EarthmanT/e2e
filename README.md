@@ -44,46 +44,54 @@ These steps prepare the environment that is required for you to demonstrate the 
 
 ## Install Kubernetes
 
-The first step of preparation for the demo is to install the Kubernetes Cluster. We run it first, because it needs to be in the default_tenant, and also because it takes a really long time to complete installation and you can run all other parts of the demo without it. It also demonstrates multi-tenancy and global secrets. This cluster is based on the [Cloudify Kubernetes Provider](http://docs.getcloudify.org/4.2.0/plugins/container-support/#infrastructure-orchestration). It has been modified specifically for this demo.
+The first step of preparation for the demo is to install the Kubernetes cluster. We run it first because it needs to be in the default_tenant. It also takes a long time to complete installation and you can run all other parts of the demo without it. The Kubernetes cluster demonstrates multi-tenancy and global secrets. This cluster is based on the [Cloudify Kubernetes Provider](http://docs.getcloudify.org/4.2.0/plugins/container-support/#infrastructure-orchestration) and is modified specifically for this demo.
 
-On the left navigation menu, select Local Blueprints, the click **Upload**.
+To install the Kubernetes cluster:
 
-![Upload Blueprints: Left Navigation Menu][blueprints-nav]
+1. Upload the Kubernetes cluster blueprint:
+    1. In the Local Blueprints page, click **Upload**.
+    1. Enter the blueprint details:
+        1. In the blueprint package URL, enter: `https://github.com/EarthmanT/e2e/releases/download/k8s-e2e-download/k8s-e2e.zip`
+        1. Enter a _Blueprint Name_ (for example, `k8s`) and select the Blueprint filename `openstack.yaml`.
+    1. Click **Upload**.
 
-[Right-click and copy the Blueprint archive URL](https://github.com/EarthmanT/e2e/releases/download/k8s-e2e-download/k8s-e2e.zip) and paste in the _URL_ field, provide a _Blueprint Name_, such as `k8s`, select `openstack.yaml` as the _Blueprint filename_. Then click **Upload**.
+    ![Upload Blueprints: Form][kubernetes-upload-blueprint]
 
-_Help: If uploading from the UI takes a long time or fails, because of the size of the `zip` file, it may be a good idea to upload via the CLI._
+:Warning: If the upload takes a long time or fails because of the size of the `zip` file, we recommend that you use the CLI to upload the file.
 
-![Upload Blueprints: Form][kubernetes-upload-blueprint]
-
-Create the deployment:
-
-![Create Deployments: Form][kubernetes-create-deployment]
-
-Locate the deployment that you just created and execute the install workflow.
+1. Deploy the database blueprint:
+    1. On the new database blueprint, click **Deploy**.
+    1. Enter the deployment details:
+        1. In the Deployment name field, enter the same name as the blueprint. (For example, `k8s`)
+        1. In the network_deployment_name field, enter your Openstack network deployment name. In the preparation steps we named it `openstack`.
+    1. Click **Deploy**.
+  
+    ![Create Deployments: Form][kubernetes-create-deployment]
 
 
 ## Add Demo Tenant
 
-Creating a demo tenant is necessary for demonstrating multi-tenancy. You will install the database, load balancer, and demo front end applications in this tenant.
+The end-to-end solution uses a demo tenant to demonstrate multi-tenancy. You install the database, load balancer, and front-end applications in this tenant.
 
-To create a tenant, select "Tenant Management" from the left navigation menu.
+To create a tenant:
 
-![Create Tenant: Left Navigation Menu][create-tenant-nav]
+1. Go to the Tenant Management page.
 
-Locate the "Tenants Management" panel. Click **Add**.
+  ![Create Tenant: Left Navigation Menu][create-tenant-nav]
 
-![Create Tenant: Pane][create-tenant-section]
+1. In the Tenants Management, click **Add**.
 
-Provide a name for your demo tenant, and click **Add**.
+  ![Create Tenant: Pane][create-tenant-section]
 
-![Create Tenant: Form][create-tenant-form]
+1. Enter a name for your demo tenant, and click **Add**.
 
-Activate your demo tenant by moving your mouse by selecting the demo tenant from the tenant drop-down menu in the top menu.
+  ![Create Tenant: Form][create-tenant-form]
 
-![Select Tenant][select-tenant]
+1. To activate your demo tenant, select the demo tenant from the tenant menu.
 
-Now that you have created the demo tenant and made it your active tenant, you can proceed to the next steps.
+  ![Select Tenant][select-tenant]
+
+Now that you created the demo tenant and selected it as your active tenant, you can continue with the next steps.
 
 
 ## Add Secrets
@@ -91,37 +99,36 @@ Now that you have created the demo tenant and made it your active tenant, you ca
 Cloudify stores your Openstack and AWS credentials as secrets.
 
   * These secrets are required for Openstack:
-    * `keystone_username`: it is `admin`.
-    * `keystone_password`: it is `cloudify1234`.
-    * `keystone_tenant_name`: it is `admin`.
-    * `keystone_region`: it is `RegionOne`.
+    * `keystone_username`: `admin`
+    * `keystone_password`: `cloudify1234`
+    * `keystone_tenant_name`: `admin`
+    * `keystone_region`: `RegionOne`
     * `keystone_url`: this varies by lab, but it will be something like `http://10.10.25.1:5000/v2.0`.
 
 **In the lab, your Openstack credentials are already set. However, if you want to modify the them, validate the values against your API configuration. This can be found in your Openstack Dashboard (http://YOUR.LAB.IP/dashboard/project/access_and_security/).**
 
   * Add your AWS credentials, by creating the following secrets:
-    * `aws_access_key_id`: See [answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
-    * `aws_secret_access_key`: See [answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
+    * `aws_access_key_id`: See [Stack Overflow answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
+    * `aws_secret_access_key`: See [Stack Overflow answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
     * `ec2_region_name`: See _Region_ column in [Amazon EC2 Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region).
     * `ec2_region_endpoint` See _Endpoint_ column in [Amazon EC2 Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region).
     * `availability_zone` See _AZ Names_ in [AWSRegionsAndAZs](https://gist.github.com/neilstuartcraig/0ccefcf0887f29b7f240).
 
-The Kubernetes Deployment that you installed above will add secrets to the default_tenant with global visibility. These will be consumed, however, from the demo tenant.
+The Kubernetes deployment that you installed adds secrets to the default_tenant with global visibility. They are used by the demo tenant.
 
-**For each secret listed above, create a secret with the exact name, and the appropriate value, with the create secrets form as shown below.**
+**For each secret listed above, create a secret with the exact name and the appropriate value with the create secrets form as shown below.**
 
-On the left navigation menu, select System Resources.
+1. Go to the System Resources page.
 
-![Add Secrets: Left Navigation Menu][add-secrets-nav]
+  ![Add Secrets: Left Navigation Menu][add-secrets-nav]
 
-Locate the "Secret Store Management" panel. Click **Create**.
+1. In the "Secret Store Management" panel, click **Create**.
 
-![Add Secrets: Panel][add-secrets-panel]
+  ![Add Secrets: Panel][add-secrets-panel]
 
-Provide a name for your demo tenant, and click **Create**.
+1. Enter a name for your demo tenant, and click **Create**.
 
-![Add Secrets: Form][add-secrets-form]
-
+  ![Add Secrets: Form][add-secrets-form]
 
 ## Upload Plugins
 
