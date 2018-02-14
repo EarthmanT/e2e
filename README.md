@@ -97,7 +97,7 @@ Cloudify stores your Openstack and AWS credentials as secrets.
     * `keystone_region`: it is `RegionOne`.
     * `keystone_url`: this varies by lab, but it will be something like `http://10.10.25.1:5000/v2.0`.
 
-**In the lab, your Openstack credentials are already set. However, if you want to modify the them, validate the values against _Access & Security_ -> _API Access_.**
+**In the lab, your Openstack credentials are already set. However, if you want to modify the them, validate the values against your API configuration. This can be found in your Openstack Dashboard (http://YOUR.LAB.IP/dashboard/project/access_and_security/).**
 
   * Add your AWS credentials, by creating the following secrets:
     * `aws_access_key_id`: See [answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
