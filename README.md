@@ -90,12 +90,15 @@ Now that you have created the demo tenant and made it your active tenant, you ca
 
 Cloudify stores your Openstack and AWS credentials as secrets.
 
-  * Add your Openstack lab credentials:
+  *These secrets are required for Openstack:
     * `keystone_username`: it is `admin`.
     * `keystone_password`: it is `cloudify1234`.
     * `keystone_tenant_name`: it is `admin`.
     * `keystone_region`: it is `RegionOne`.
     * `keystone_url`: this varies by lab, but it will be something like `http://10.10.25.1:5000/v2.0`.
+
+**In the lab, your Openstack credentials are already set. However, if you want to modify the them, validate the values against _Access & Security_ -> _API Access_.**
+
   * Add your AWS credentials, by creating the following secrets:
     * `aws_access_key_id`: See [answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
     * `aws_secret_access_key`: See [answer](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon).
