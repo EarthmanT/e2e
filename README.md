@@ -90,7 +90,7 @@ Now that you have created the demo tenant and made it your active tenant, you ca
 
 Cloudify stores your Openstack and AWS credentials as secrets.
 
-  *These secrets are required for Openstack:
+  * These secrets are required for Openstack:
     * `keystone_username`: it is `admin`.
     * `keystone_password`: it is `cloudify1234`.
     * `keystone_tenant_name`: it is `admin`.
