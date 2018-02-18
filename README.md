@@ -57,7 +57,7 @@ To install the Kubernetes cluster:
 
     ![Upload Blueprints: Form][kubernetes-upload-blueprint]
 
-:Warning: If the upload takes a long time or fails because of the size of the `zip` file, we recommend that you use the CLI to upload the file.
+    **Warning** If the upload takes a long time or fails because of the size of the `zip` file, we recommend that you use the CLI to upload the file.
 
 1. Deploy the database blueprint:
     1. On the new database blueprint, click **Deploy**.
@@ -77,19 +77,19 @@ To create a tenant:
 
 1. Go to the Tenant Management page.
 
-  ![Create Tenant: Left Navigation Menu][create-tenant-nav]
+    ![Create Tenant: Left Navigation Menu][create-tenant-nav]
 
 1. In the Tenants Management, click **Add**.
 
-  ![Create Tenant: Pane][create-tenant-section]
+    ![Create Tenant: Pane][create-tenant-section]
 
 1. Enter a name for your demo tenant, and click **Add**.
 
-  ![Create Tenant: Form][create-tenant-form]
+    ![Create Tenant: Form][create-tenant-form]
 
 1. To activate your demo tenant, select the demo tenant from the tenant menu.
 
-  ![Select Tenant][select-tenant]
+    ![Select Tenant][select-tenant]
 
 Now that you created the demo tenant and selected it as your active tenant, you can continue with the next steps.
 
@@ -120,15 +120,15 @@ The Kubernetes deployment that you installed adds secrets to the default_tenant 
 
 1. Go to the System Resources page.
 
-  ![Add Secrets: Left Navigation Menu][add-secrets-nav]
+    ![Add Secrets: Left Navigation Menu][add-secrets-nav]
 
 1. In the "Secret Store Management" panel, click **Create**.
 
-  ![Add Secrets: Panel][add-secrets-panel]
+    ![Add Secrets: Panel][add-secrets-panel]
 
 1. Enter a name for your demo tenant, and click **Create**.
 
-  ![Add Secrets: Form][add-secrets-form]
+    ![Add Secrets: Form][add-secrets-form]
 
 ## Upload Plugins
 
@@ -144,15 +144,15 @@ The blueprints installed in the demo require these plugins:
 
 1. Go to the System Resources page.
 
-  ![Upload Plugins: Left Navigation Menu][add-secrets-nav]
+    ![Upload Plugins: Left Navigation Menu][add-secrets-nav]
 
 1. In the Plugins panel, click **Upload**.
 
-  ![Upload Plugins: Panel][upload-plugins-panel]
+    ![Upload Plugins: Panel][upload-plugins-panel]
 
 1. Paste the URL in the _URL_ field and click **Upload**.
 
-  ![Upload Plugins: Form][upload-plugins-form]
+    ![Upload Plugins: Form][upload-plugins-form]
 
 
 ## Create Example Networks
@@ -174,11 +174,11 @@ In this demo, you need two "Network as a Service" deployments: one for AWS and o
         1. Enter a _Blueprint Name_ (for example, `aws` or `openstack`) and select the Blueprint filename. For AWS this is `update-blueprint.yaml` and for Openstack this is `simple-blueprint.yaml`.
     1. Click **Upload**.
 
-_In the AWS package, there is a `simple-blueprint.yaml` blueprint and an `update-blueprint.yaml`. If you want to show deployment update, you can first deploy the `simple-blueprint.yaml` and update the deployment with the `update-blueprint.yaml` blueprint._
+    _In the AWS package, there is a `simple-blueprint.yaml` blueprint and an `update-blueprint.yaml`. If you want to show deployment update, you can first deploy the `simple-blueprint.yaml` and update the deployment with the `update-blueprint.yaml` blueprint._
 
     ![Upload Blueprints: Form][blueprints-form]
 
-:Warning: If the upload takes a long time or fails because of the size of the `zip` file, we recommend that you use the CLI to upload the file.
+    **Warning** If the upload takes a long time or fails because of the size of the `zip` file, we recommend that you use the CLI to upload the file.
 
 1. Deploy the blueprint:
     1. On the new blueprint, click **Deploy**.
