@@ -1,0 +1,146 @@
+tosca_definitions_version: cloudify_dsl_1_3
+
+description: >
+  This blueprint combines three blueprints that are intended to be executed together.
+  They are a MariaDB blueprint, an HAProxy blueprint, and a Drupal blueprint.
+  The MariaDB blueprint installs a MariaDB/Galera database cluster.
+  The HAProxy blueprint installs a load balancer that balances connections to the cluster members.
+  The Drupal blueprint is an example application that connects to the cluster via the load balancer.
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/4.3/types.yaml
+  - http://www.getcloudify.org/spec/utilities-plugin/1.5.2/plugin.yaml
+  - http://www.getcloudify.org/spec/dblb/0.2/plugin.yaml
+
+inputs:
+
+  environment_blueprint_filename:
+    default: openstack.yaml
+
+  proxy_manager_network:
+    default: external
+
+  new_database_user:
+    default: demo
+
+  new_database_password:
+    default: new_password
+
+  db_deployment:
+    default: db
+
+  lb_deployment:
+    default: lb
+
+  drupal_deployment:
+    default: drupal
+
+node_templates:
+
+  drupal:
+    type: cloudify.nodes.DeploymentProxy
+    properties:
+      resource_config:
+        blueprint:
+          id: { get_input: drupal_deployment }
+          blueprint_archive: https://github.com/cloudify-examples/drupal-blueprint/archive/master.zip
+          main_file_name: { get_input: environment_blueprint_filename }
+        deployment:
+          id: { get_input: drupal_deployment }
+          inputs:
+            manager_network: { get_input: proxy_manager_network }
+            db_deployment: { get_input: db_deployment }
+            lb_deployment: { get_input: lb_deployment }
+          outputs:
+            ip: ip
+        reexecute: false
+    relationships:
+    - type: cloudify.relationships.depends_on
+      target: lb
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        configure:
+          implementation: cfy_util.cloudify_deployment_proxy.tasks.create_deployment
+          inputs:
+            resource_config:
+              blueprint: { get_property: [ SELF, resource_config, blueprint ] }
+              deployment:
+                id: { get_property: [ SELF, resource_config, deployment, id ] }
+                inputs:
+                  manager_network: { get_input: proxy_manager_network }
+                  db_deployment: { get_input: db_deployment }
+                  lb_deployment: { get_input: lb_deployment }
+                outputs:
+                  ip: { get_property: [ SELF, resource_config, deployment, outputs, ip ] }
+        start:
+          implementation: cfy_util.cloudify_deployment_proxy.tasks.execute_start
+          inputs:
+            workflow_id: install
+            timeout: 1100
+            interval: 15
+
+  lb:
+    type: cloudify.nodes.DeploymentProxy
+    properties:
+      resource_config:
+        blueprint:
+          id: { get_input: lb_deployment }
+          blueprint_archive: https://github.com/cloudify-examples/haproxy-blueprint/archive/master.zip
+          main_file_name: { get_input: environment_blueprint_filename }
+        deployment:
+          id: { get_input: lb_deployment }
+          inputs:
+            manager_network: { get_input: proxy_manager_network }
+            application_ip: ''
+          outputs:
+            ip: ip
+        reexecute: false
+    relationships:
+    - type: cloudify.relationships.depends_on
+      target: db
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        configure:
+          implementation: cfy_util.cloudify_deployment_proxy.tasks.create_deployment
+          inputs:
+            resource_config:
+              blueprint: { get_property: [ SELF, resource_config, blueprint ] }
+              deployment:
+                id: { get_property: [ SELF, resource_config, deployment, id ] }
+                inputs:
+                  manager_network: { get_input: proxy_manager_network }
+                  application_ip: { get_attribute: [ db, deployment, outputs, ips, 0 ] }
+                outputs:
+                  ip: { get_property: [ SELF, resource_config, deployment, outputs, ip ] }
+        start:
+          implementation: cfy_util.cloudify_deployment_proxy.tasks.execute_start
+          inputs:
+            workflow_id: install
+            timeout: 1100
+            interval: 15
+
+  db:
+    type: cloudify.nodes.DeploymentProxy
+    properties:
+      resource_config:
+        blueprint:
+          id: { get_input: db_deployment }
+          blueprint_archive: https://github.com/cloudify-examples/mariadb-blueprint/archive/master.zip
+          main_file_name: { get_input: environment_blueprint_filename }
+        deployment:
+          id: { get_input: db_deployment }
+          inputs:
+            new_database_user: { get_input: new_database_user}
+            new_database_password: { get_input: new_database_password }
+            manager_network: { get_input: proxy_manager_network }
+          outputs:
+            cluster_addresses: ips
+        reexecute: false
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          implementation: cfy_util.cloudify_deployment_proxy.tasks.execute_start
+          inputs:
+            workflow_id: install
+            timeout: 1100
+            interval: 15
